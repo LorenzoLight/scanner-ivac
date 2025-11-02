@@ -5,27 +5,31 @@
   <style>
     body { margin: 0; padding: 0; text-align: center; }
     video { width: 100%; max-width: 400px; border: none; }
+    a { display: none; margin-top: 10px; font-size: 16px; }
   </style>
 </head>
 <body>
   <video id="video"></video>
+  <a id="link" href="#" target="_blank"></a>
 
   <script>
     const codeReader = new ZXing.BrowserBarcodeReader();
     const videoElement = document.getElementById('video');
+    const link = document.getElementById('link');
     const baseUrl = "https://sites.google.com/view/itisvinci-ac/info/incaricati/IVAC-CARD/";
 
     codeReader.decodeFromVideoDevice(null, videoElement, (result, err) => {
       if (result) {
         const scannedCode = result.text;
         const finalUrl = baseUrl + encodeURIComponent(scannedCode);
-        window.location.href = finalUrl;
+        link.href = finalUrl;
+        link.textContent = "Apri scheda: " + scannedCode;
+        link.style.display = "inline";
       }
     });
   </script>
 </body>
 </html>
-  </script>
-</body>
-</html>
+
+
 
