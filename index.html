@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scanner IVAC-CARD</title>
+  <script src="https://unpkg.com/@zxing/library@latest"></script>
+</head>
+<body>
+  <h2>Scanner IVAC-CARD</h2>
+  <video id="video" width="300" height="200" style="border:1px solid black"></video>
+  <p id="output">Scansiona un barcode...</p>
+  <a id="link" href="#" target="_blank" style="display:none;">Apri scheda IVAC-CARD</a>
+
+  <script>
+    const codeReader = new ZXing.BrowserBarcodeReader();
+    const videoElement = document.getElementById('video');
+    const output = document.getElementById('output');
+    const link = document.getElementById('link');
+    const baseUrl = "https://sites.google.com/view/itisvinci-ac/info/incaricati/IVAC-CARD/";
+
+    codeReader.decodeFromVideoDevice(null, videoElement, (result, err) => {
+      if (result) {
+        const scannedCode = result.text;
+        const finalUrl = baseUrl + encodeURIComponent(scannedCode);
+        output.textContent = "Codice scansionato: " + scannedCode;
+        link.href = finalUrl;
+        link.textContent = "Apri " + finalUrl;
+        link.style.display = "inline";
+      }
+    });
+  </script>
+</body>
+</html>
